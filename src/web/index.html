@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Referee Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Technical Referee Tool</h1>
+            <p>Get personalized technology recommendations based on your constraints and priorities</p>
+        </header>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="step-indicator" id="stepIndicator">
+            <span class="step active" data-step="budget">Budget</span>
+            <span class="step" data-step="scale">Scale</span>
+            <span class="step" data-step="team">Team</span>
+            <span class="step" data-step="timeline">Timeline</span>
+            <span class="step" data-step="priorities">Priorities</span>
+        </div>
+
+        <main id="formContainer">
+            <!-- Budget Form -->
+            <form id="budgetForm" class="constraint-form active">
+                <h2>Budget Level</h2>
+                <p class="form-description">What's your budget level for this project?</p>
+                
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="budget" value="low" required>
+                        <div class="radio-content">
+                            <strong>Low</strong>
+                            <span>Minimal budget, cost is primary concern</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="budget" value="medium" required>
+                        <div class="radio-content">
+                            <strong>Medium</strong>
+                            <span>Moderate budget, balance of cost and features</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="budget" value="high" required>
+                        <div class="radio-content">
+                            <strong>High</strong>
+                            <span>Flexible budget, focus on best solution</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Next</button>
+                </div>
+            </form>
+
+            <!-- Scale Form -->
+            <form id="scaleForm" class="constraint-form">
+                <h2>Expected Scale</h2>
+                <p class="form-description">What scale do you expect for your application?</p>
+                
+                <div class="form-group">
+                    <label for="users">Expected number of users:</label>
+                    <input type="number" id="users" name="users" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Expected traffic volume:</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="traffic" value="low" required>
+                            <div class="radio-content">
+                                <strong>Low</strong>
+                                <span>Light usage, occasional spikes</span>
+                            </div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="traffic" value="medium" required>
+                            <div class="radio-content">
+                                <strong>Medium</strong>
+                                <span>Steady usage, predictable patterns</span>
+                            </div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="traffic" value="high" required>
+                            <div class="radio-content">
+                                <strong>High</strong>
+                                <span>Heavy usage, frequent spikes</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="goBack()">Back</button>
+                    <button type="submit" class="btn-primary">Next</button>
+                </div>
+            </form>
+
+            <!-- Team Form -->
+            <form id="teamForm" class="constraint-form">
+                <h2>Team Information</h2>
+                <p class="form-description">Tell us about your team's capabilities</p>
+                
+                <div class="form-group">
+                    <label>Team skill level:</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="skillLevel" value="junior" required>
+                            <div class="radio-content">
+                                <strong>Junior</strong>
+                                <span>Early career developers, learning focus</span>
+                            </div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="skillLevel" value="mixed" required>
+                            <div class="radio-content">
+                                <strong>Mixed</strong>
+                                <span>Combination of experience levels</span>
+                            </div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="skillLevel" value="senior" required>
+                            <div class="radio-content">
+                                <strong>Senior</strong>
+                                <span>Experienced developers, can handle complexity</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Technologies your team has experience with:</label>
+                    <textarea id="experience" name="experience" placeholder="Enter technologies separated by commas (e.g., JavaScript, Python, AWS, PostgreSQL)"></textarea>
+                    <small>List the main technologies your team is comfortable with</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="goBack()">Back</button>
+                    <button type="submit" class="btn-primary">Next</button>
+                </div>
+            </form>
+
+            <!-- Timeline Form -->
+            <form id="timelineForm" class="constraint-form">
+                <h2>Timeline Requirements</h2>
+                <p class="form-description">What's your time-to-market requirement?</p>
+                
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="timeline" value="immediate" required>
+                        <div class="radio-content">
+                            <strong>Immediate</strong>
+                            <span>Need to launch ASAP, within weeks</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="timeline" value="short" required>
+                        <div class="radio-content">
+                            <strong>Short</strong>
+                            <span>Launch within 1-3 months</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="timeline" value="medium" required>
+                        <div class="radio-content">
+                            <strong>Medium</strong>
+                            <span>Launch within 3-6 months</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="timeline" value="long" required>
+                        <div class="radio-content">
+                            <strong>Long</strong>
+                            <span>6+ months, can invest in learning</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="goBack()">Back</button>
+                    <button type="submit" class="btn-primary">Next</button>
+                </div>
+            </form>
+
+            <!-- Priorities Form -->
+            <form id="prioritiesForm" class="constraint-form">
+                <h2>Priority Ranking</h2>
+                <p class="form-description">Rate the importance of each factor (1 = Very Low, 5 = Very High)</p>
+                
+                <div class="priority-group">
+                    <div class="priority-item">
+                        <label for="cost">Cost Optimization</label>
+                        <p class="priority-description">Minimizing infrastructure, licensing, and operational costs</p>
+                        <div class="priority-slider">
+                            <input type="range" id="cost" name="cost" min="1" max="5" value="3" required>
+                            <div class="slider-labels">
+                                <span>Very Low</span>
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                                <span>Very High</span>
+                            </div>
+                            <div class="slider-value" id="costValue">Medium</div>
+                        </div>
+                    </div>
+
+                    <div class="priority-item">
+                        <label for="performance">Performance</label>
+                        <p class="priority-description">Maximizing speed, throughput, and responsiveness</p>
+                        <div class="priority-slider">
+                            <input type="range" id="performance" name="performance" min="1" max="5" value="3" required>
+                            <div class="slider-labels">
+                                <span>Very Low</span>
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                                <span>Very High</span>
+                            </div>
+                            <div class="slider-value" id="performanceValue">Medium</div>
+                        </div>
+                    </div>
+
+                    <div class="priority-item">
+                        <label for="easeOfUse">Ease of Use</label>
+                        <p class="priority-description">Gentle learning curve and good developer experience</p>
+                        <div class="priority-slider">
+                            <input type="range" id="easeOfUse" name="easeOfUse" min="1" max="5" value="3" required>
+                            <div class="slider-labels">
+                                <span>Very Low</span>
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                                <span>Very High</span>
+                            </div>
+                            <div class="slider-value" id="easeOfUseValue">Medium</div>
+                        </div>
+                    </div>
+
+                    <div class="priority-item">
+                        <label for="scalability">Scalability</label>
+                        <p class="priority-description">Ability to handle growth in users and traffic</p>
+                        <div class="priority-slider">
+                            <input type="range" id="scalability" name="scalability" min="1" max="5" value="3" required>
+                            <div class="slider-labels">
+                                <span>Very Low</span>
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                                <span>Very High</span>
+                            </div>
+                            <div class="slider-value" id="scalabilityValue">Medium</div>
+                        </div>
+                    </div>
+
+                    <div class="priority-item">
+                        <label for="vendorLockIn">Avoid Vendor Lock-in</label>
+                        <p class="priority-description">Importance of avoiding dependency on a single vendor</p>
+                        <div class="priority-slider">
+                            <input type="range" id="vendorLockIn" name="vendorLockIn" min="1" max="5" value="3" required>
+                            <div class="slider-labels">
+                                <span>Very Low</span>
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                                <span>Very High</span>
+                            </div>
+                            <div class="slider-value" id="vendorLockInValue">Medium</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="priority-analysis" id="priorityAnalysis">
+                    <!-- Priority balance analysis will be shown here -->
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="goBack()">Back</button>
+                    <button type="submit" class="btn-primary">Complete</button>
+                </div>
+            </form>
+
+            <!-- Results Display -->
+            <div id="resultsDisplay" class="results-container">
+                <h2>Constraint Collection Complete</h2>
+                <p>Your constraints have been successfully collected. Here's a summary:</p>
+                <div id="constraintsSummary"></div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="editConstraints()">Edit Constraints</button>
+                    <button type="button" class="btn-primary" onclick="proceedToComparison()">Proceed to Comparison</button>
+                </div>
+            </div>
+        </main>
+
+        <div class="error-container" id="errorContainer">
+            <!-- Validation errors will be displayed here -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
