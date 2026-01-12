@@ -76,9 +76,9 @@ export class ComparisonEngine implements IComparisonEngine {
    * @param options - Technical options to validate
    * @returns Validation result with detailed errors
    */
-  validateTechnicalOptions(options: TechnicalOption[]): ValidationResult {
-    const errors: ValidationError[] = [];
-    const warnings: string[] = [];
+  // validateTechnicalOptions(options: TechnicalOption[]): ValidationResult {
+  //   const errors: ValidationError[] = [];
+  //   const warnings: string[] = [];
 
     // First validate option count
     const countValidation = this.validateOptionCount(options);
